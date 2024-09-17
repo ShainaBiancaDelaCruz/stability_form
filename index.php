@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $staphylococcus_aureus = $_POST['staphylococcus_aureus'];
     $sodium_ascorbate = $_POST['sodium_ascorbate'];
     $zinc_sulfate = $_POST['zinc_sulfate'];
-    $initial_test_ = $_POST['initial_test'];
+    $initial_test= $_POST['initial_test'];
 
     // Prepare and bind
     $stmt = $conn->prepare("INSERT INTO products (product_name, brand_name, lot_no, mfg_date, expiry_date, packing, storage_temp, rh, description, identification, weight, disintegration_time, moisture_content, dosage_unit, bacterial_count, molds_yeast_count, salmonella, escherichia_coli, staphylococcus_aureus,sodium_ascorbate, zinc_sulfate,initial_test) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)");
@@ -128,44 +128,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="modal-dialog custom-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+      <h2 class="text-center modal-title">Stability Data Input Form</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h2 class="text-center">Stability Data Input Form</h2>
+     
 
-        <form id="stabilityForm" method="POST" action="add_product.php">
+        <form id="stabilityForm" method="POST" action="">
           <!-- First Table for General Product Information -->
           <table id="dataTable" class="table table-bordered">
-            <tr>
-              <th colspan="2">PRODUCT<br>NAME</th>
-              <td colspan="2"><input type="text" name="product_name" class="form-control" required></td>
-              <th>LOT NO.</th>
-              <td><input type="text" name="lot_no" class="form-control" required></td>
-            </tr>
-            <tr>
-              
-              <th>PACKING</th>
-              <td><input type="text" name="packing" class="form-control" required></td>
-            </tr>
-            <tr>
-              <th colspan="2">BRANDNAME</th>
-              <td colspan="2"><input type="text" name="brand_name" class="form-control" placeholder="enter brand name" required></td>
-              <th>STORAGE TEMPERATURE</th>
-              <td><input type="text" name="storage_temp" class="form-control" required></td>
-            </tr>
-            <tr>
-              <th>MFG. DATE</th>
-              <td><input type="date" name="mfg_date" class="form-control" required></td>
-              <th>EXPIRY DATE</th>
-              <td><input type="date" name="expiry_date" class="form-control" required></td>
-              <th>RH</th>
-              <td><input type="text" name="rh" class="form-control" required></td>
-            </tr>
-          </table>
-
+              <tr>
+                <th colspan="2">PRODUCT<br>NAME</th>
+                <td colspan="2"><input type="text" name="product_name" class="form-control" required></td>
+                <th colspan="2">LOT NO.</th>
+                <td colspan="2"><input type="number" name="lot_no" class="form-control" required></td>
+              </tr>
+              <tr>
+                <th colspan="2">PACKING</th>
+                <td colspan="2"><input type="text" name="packing" class="form-control" required></td>
+                <th colspan="2">BRANDNAME</th>
+                <td colspan="2"><input type="text" name="brand_name" class="form-control" placeholder="enter brand name" required></td>
+              </tr>
+              <tr>
+                <th colspan="2">STORAGE TEMPERATURE</th>
+                <td colspan="2"><input type="text" name="storage_temp" class="form-control" required></td>
+                <th colspan="2">MFG. DATE</th>
+                <td colspan="2"><input type="date" name="mfg_date" class="form-control" required></td>
+              </tr>
+              <tr>
+                <th colspan="2">EXPIRY DATE</th>
+                <td colspan="2"><input type="date" name="expiry_date" class="form-control" required></td>
+                <th colspan="2">RH</th>
+                <td colspan="2"><input type="text" name="rh" class="form-control" required></td>
+              </tr>
+            </table>
           <!-- Second Table for Parameters -->
           <table id="dataTable2" class="table table-bordered">
             <tr class="header">
@@ -183,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
               <td>DESCRIPTION</td>
               <td><input type="text" name="description" class="form-control" required></td>
-              <td><input type="date" name="start_date" id="start_date" name="initial_test" class="form-control"  required onchange="generateCycleDates()"></td>
+              <td><input type="date"  id="initial_test" name="initial_test" class="form-control"  required onchange="generateCycleDates()"></td>
               <td><input type="text" name="cycle_1_date" id="cycle_1_date" class="form-control" readonly></td>
               <td><input type="text" name="cycle_2_date" id="cycle_2_date" class="form-control" readonly></td>
               <td><input type="text" name="cycle_3_date" id="cycle_3_date" class="form-control" readonly></td>
@@ -232,19 +230,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tr>
             <tr>
               <td>Salmonella Species</td>
-              <td><input type="text" name="salmonella" class="form-control" required></td>
+              <td>
+                  <select name="salmonella" class="form-control" required>
+                      <option value="">Select</option>
+                      <option value="Positive">Positive</option>
+                      <option value="Negative">Negative</option>
+                  </select>
+              </td>
               <td colspan="8"></td>
-            </tr>
-            <tr>
+          </tr>
+          <tr>
               <td>Escherichia coli</td>
-              <td><input type="text" name="escherichia_coli" class="form-control" required></td>
+              <td>
+                  <select name="escherichia_coli" class="form-control" required>
+                      <option value="">Select</option>
+                      <option value="Positive">Positive</option>
+                      <option value="Negative">Negative</option>
+                  </select>
+              </td>
               <td colspan="8"></td>
-            </tr>
-            <tr>
+          </tr>
+          <tr>
               <td>Staphylococcus Aureus</td>
-              <td><input type="text" name="staphylococcus_aureus" class="form-control" required></td>
+              <td>
+                  <select name="staphylococcus_aureus" class="form-control" required>
+                      <option value="">Select</option>
+                      <option value="Positive">Positive</option>
+                      <option value="Negative">Negative</option>
+                  </select>
+              </td>
               <td colspan="8"></td>
-            </tr>
+          </tr>
+
             <tr>
               <td>Sodium Ascorbate</td>
               <td><input type="text" name="sodium_ascorbate" class="form-control" required></td>
@@ -258,9 +275,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </table>
 
           <br>
-
-          <input type="button" value="Download as Excel" class="btn btn-primary" onclick="downloadExcel()">
-          <input type="submit" value="Submit">
+          <button type="submit" class="btn btn-primary">Submit</button>
+    
+      <!-- Cancel button with Bootstrap styling -->
+      <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php';">Cancel</button>
         </form>
       </div>
     </div>
@@ -270,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!-- Custom CSS for 80% width modal -->
 <style>
   .custom-modal {
-    max-width: 80%;
+    max-width: 100%;
   }
 </style>
 
@@ -286,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function generateCycleDates() {
-            var startDate = document.getElementById('start_date').value;
+            var startDate = document.getElementById('initial_test').value;
 
             if (startDate) {
                 document.getElementById('cycle_1_date').value = addMonthsToDate(startDate, 3);
@@ -448,4 +466,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 </html>
-
